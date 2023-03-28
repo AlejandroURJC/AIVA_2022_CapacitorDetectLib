@@ -2,7 +2,8 @@ import os
 import cv2
 import json
 import argparse
-
+from Capacitor import Capacitor
+import numpy as np
 
 def validate_board(im_path, loc_path="./"):
     """
@@ -75,7 +76,11 @@ def read_image(im_path):
     :return:
     """
     if os.path.exists(im_path):
-        return cv2.imread(im_path, 0)
+        img = cv2.imread(im_path, cv2.IMREAD_GRAYSCALE)
+        width = int(img.shape[1] / 3)
+        height = int(img.shape[0] / 3)
+        dim = (width, height)
+        return cv2.resize(img, dim)
     else:
         raise Exception("La imagen no existe")
 
@@ -91,14 +96,19 @@ def extract_types(capacitors):
     return big, small
 
 
-# TODO implementar localizar condensadores
 def loc_capacitors(segments):
     """
     Recibe los segmentos de seg_image y se queda con los que son condensadores
     :param segments:
     :return:
     """
-    return []
+    res = []
+    for (x, y, r) in segments:
+        # Si el segmento cumple el umbral entonces se crea un condensador y se añade a la lista
+        if r >= 10:
+            cap = Capacitor((x,y), r)
+            res.append(cap)
+    return res
 
 
 # TODO implementar segmentación de la imagen
@@ -108,7 +118,6 @@ def seg_image(image):
     :param image:
     :return:
     """
-    return []
 
 
 if __name__ == '__main__':

@@ -42,3 +42,15 @@ class CapacitorDetectionTest(unittest.TestCase):
         :return:
         """
         self.assertEqual(cd.read_image(testim).shape, (3280, 4928))
+
+    def test_loc_capacitors(self):
+        """
+        Comprueba que el número de condensadores detectados en la imagen son los esperados
+        :return:
+        """
+        tuples = cd.seg_image(cd.read_image(testim))
+        capacitors = cd.loc_capacitors(tuples)
+        self.assertEqual(18, len(capacitors))
+
+
+
