@@ -2,7 +2,7 @@ import os
 import cv2
 import json
 import argparse
-
+import numpy as np
 
 def validate_board(im_path, loc_path="./"):
     """
@@ -75,7 +75,11 @@ def read_image(im_path):
     :return:
     """
     if os.path.exists(im_path):
-        return cv2.imread(im_path, 0)
+        img = cv2.imread(im_path, cv2.IMREAD_GRAYSCALE)
+        width = int(img.shape[1] / 3)
+        height = int(img.shape[0] / 3)
+        dim = (width, height)
+        return cv2.resize(img, dim)
     else:
         raise Exception("La imagen no existe")
 
@@ -92,7 +96,7 @@ def extract_types(capacitors):
 
 
 # TODO implementar localizar condensadores
-def loc_capacitors(segments):
+def loc_capacitors(segments, image):
     """
     Recibe los segmentos de seg_image y se queda con los que son condensadores
     :param segments:
@@ -101,14 +105,35 @@ def loc_capacitors(segments):
     return []
 
 
-# TODO implementar segmentación de la imagen
 def seg_image(image):
     """
     Recibe una imagen y la segmenta buscando zonas redondeadas
     :param image:
     :return:
     """
-    return []
+    res = []
+    output = cv2.cvtColor(image,cv2.COLOR_GRAY2BGR)
+    # Se aplican diversos filtros para eliminar el ruido de la imagen
+    kernel = np.ones((9, 9), np.uint8)
+    blur = cv2.bilateralFilter(image, 21, sigmaColor=75, sigmaSpace=75)
+    blur = cv2.erode(blur, kernel, iterations=1)
+    blur = cv2.dilate(blur, kernel, iterations=1)
+
+    # Parámetros de Hough Circles seleccionados hasta obtener los resultados esperados
+    circles = cv2.HoughCircles(blur,cv2.HOUGH_GRADIENT,1,15, param1=100,param2=11,minRadius=4,maxRadius=11)
+
+    if circles is not None:
+        # Se pasan los valores de cada segmento a entero
+        circles = np.round(circles[0, :]).astype("int")
+        # Se recorre cada zona y se guarda en la lista res como una tupla
+        for (x, y, r) in circles:
+            res.append((x, y, r))
+            cv2.circle(output, (x, y), r, (0, 255, 0), 4)
+            cv2.rectangle(output, (x - 5, y - 5), (x + 5, y + 5), (0, 128, 255), -1)
+    cv2.imshow("output", output)
+    cv2.waitKey(0)
+
+    return res
 
 
 if __name__ == '__main__':

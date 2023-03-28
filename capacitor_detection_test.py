@@ -41,4 +41,9 @@ class CapacitorDetectionTest(unittest.TestCase):
         Comprueba que la imagen se lee correctamente con el tamaño debido
         :return:
         """
-        self.assertEqual(cd.read_image(testim).shape, (3280, 4928))
+        self.assertEqual(cd.read_image(testim).shape, (int(3280/3), int(4928/3)))
+
+
+    def test_seg_image(self):
+        tuples = cd.seg_image(cd.read_image(testim))
+        self.assertEqual(53, len(tuples))
