@@ -45,5 +45,9 @@ class CapacitorDetectionTest(unittest.TestCase):
 
 
     def test_seg_image(self):
+        """
+        Comprueba que el número de segmentos devueltos por la imagen son los esperados
+        :return:
+        """
         tuples = cd.seg_image(cd.read_image(testim))
         self.assertEqual(53, len(tuples))
