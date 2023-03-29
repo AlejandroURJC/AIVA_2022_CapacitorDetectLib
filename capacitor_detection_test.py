@@ -1,6 +1,7 @@
 import json
 import unittest
 import capacitor_detection as cd
+from Motherboard import Motherboard
 
 testim = "./DB/rec1-1.jpg"
 testloc = "./locations"
@@ -32,7 +33,8 @@ class CapacitorDetectionTest(unittest.TestCase):
         Comprueba que una placa evaluada como positiva ha sido bien validada
         :return:
         """
-        self.assertTrue(cd.validate_board(testim, testloc), "Placa no válida")
+        board = Motherboard()
+        self.assertTrue(board.validate_board(testim, testloc), "Placa no válida")
         big, small = cd.read_txt(testim, testloc)
         self.assertGreater(len(big) * 0.15 + len(small) * 0.05, 1, "Placa mal validada")
 

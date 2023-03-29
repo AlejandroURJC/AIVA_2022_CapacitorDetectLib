@@ -2,28 +2,7 @@ import os
 import cv2
 import json
 import argparse
-from Capacitor import Capacitor
-import numpy as np
-
-def validate_board(im_path, loc_path="./"):
-    """
-    Lee la imagen, se segmenta y buscan los condensadores y se clasifican entre grandes y pequeños. Se clasifica como
-    válida la placa si da beneficios
-    :param im_path:
-    :param loc_path:
-    :return:
-    """
-    image = read_image(im_path)
-    segments = seg_image(image)
-    capacitors = loc_capacitors(segments)
-    big, small = extract_types(capacitors)
-
-    if len(big) * 0.15 + len(small) * 0.05 > 1:
-        write_txt((big, small), im_path, loc_path)
-        return True
-    else:
-        return False
-
+from Motherboard import Motherboard
 
 def write_txt(capacitors, im_path, loc_path):
     """
@@ -53,20 +32,6 @@ def read_txt(im_path, loc_path):
             return json.load(f)
     except OSError as e:
         return
-
-
-def show_validation(valid, im_path, loc_path):
-    """
-    Muestra por pantalla el resultado de la decisión tomada
-    :return:
-    """
-    if valid:
-        big, small = read_txt(im_path, loc_path)
-        print("Válida")
-        # TODO mostrar válido con las localizaciones de big y small
-    else:
-        print("No válida")
-        # TODO mostrar np válido
 
 
 def read_image(im_path):
@@ -127,6 +92,5 @@ if __name__ == '__main__':
                         required=False)
 
     args = parser.parse_args()
-
-    valid = validate_board(args.img, args.loc)
-    show_validation(valid, args.img, args.loc)
+    board = Motherboard()
+    valid = board.validate_board(args.img, args.loc)
