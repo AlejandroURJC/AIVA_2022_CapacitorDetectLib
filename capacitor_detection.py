@@ -118,3 +118,4 @@ if __name__ == '__main__':
     args = parser.parse_args()
     board = Motherboard()
     valid = board.validate_board(args.img, args.loc)
+
