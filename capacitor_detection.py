@@ -75,7 +75,7 @@ def loc_capacitors(segments):
     for (x, y, r) in segments:
         # Si el segmento cumple el umbral entonces se crea un condensador y se añade a la lista
         if 4 < r < 11:
-            cap = Capacitor((x, y), r)
+            cap = Capacitor((int(x), int(y)), r)
             res.append(cap)
     return res
 
