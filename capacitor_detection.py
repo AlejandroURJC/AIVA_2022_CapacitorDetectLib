@@ -54,14 +54,23 @@ def read_image(im_path):
         raise Exception("La imagen no existe")
 
 
-# TODO implementar extracción de tipos
 def extract_types(capacitors):
     """
     Separa los condensadores por tipos (grande o pequeño)
     :param capacitors:
     :return:
     """
-    big, small = ([[], [], [], [], [], [], [], []], [])
+    big = []
+    small = []
+    for capacitor in capacitors:
+        if capacitor.getRadius() > 7:
+            values = list(capacitor.getCentroid())
+            values.append(capacitor.getRadius())
+            big.append(values)
+        else:
+            values = list(capacitor.getCentroid())
+            values.append(capacitor.getRadius())
+            small.append(values)
     return big, small
 
 
@@ -75,7 +84,7 @@ def loc_capacitors(segments):
     for (x, y, r) in segments:
         # Si el segmento cumple el umbral entonces se crea un condensador y se añade a la lista
         if 4 < r < 11:
-            cap = Capacitor((int(x), int(y)), r)
+            cap = Capacitor((int(x), int(y)), int(r))
             res.append(cap)
     return res
 
