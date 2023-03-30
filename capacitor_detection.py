@@ -16,8 +16,7 @@ def write_txt(capacitors, im_path, loc_path):
     """
     if not os.path.exists(loc_path):
         os.mkdir(loc_path)
-    im_name = im_path.split("/")[-1]
-    im_name = im_name.split(".")[0]
+    im_name = im_path.split(".")[0]
     with open(loc_path + "/" + im_name + "_loc.txt", "w") as f:
         json.dump(capacitors, f)
 
@@ -29,8 +28,7 @@ def read_txt(im_path, loc_path):
     :param loc_path:
     :return:
     """
-    im_name = im_path.split("/")[-1]
-    im_name = im_name.split(".")[0]
+    im_name = im_path.split(".")[0]
     try:
         with open(loc_path + "/" + im_name + "_loc.txt", "r") as f:
             return json.load(f)
