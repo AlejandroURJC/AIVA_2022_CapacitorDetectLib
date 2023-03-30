@@ -53,6 +53,3 @@ class CapacitorDetectionTest(unittest.TestCase):
         tuples = cd.seg_image(cd.read_image(testim))
         capacitors = cd.loc_capacitors(tuples)
         self.assertEqual(18, len(capacitors))
-
-
-
