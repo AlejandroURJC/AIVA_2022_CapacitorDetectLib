@@ -1,3 +1,5 @@
+import cv2
+
 import capacitor_detection as cd
 
 class Motherboard:
@@ -28,13 +30,22 @@ class Motherboard:
         Muestra por pantalla el resultado de la decisión tomada
         :return:
         """
+        output = cv2.cvtColor(cd.read_image(im_path),cv2.COLOR_GRAY2BGR)
         if valid:
             big, small = cd.read_txt(im_path, loc_path)
             print("Válida")
-            # TODO mostrar válido con las localizaciones de big y small
+            for (x, y, r) in big:
+                cv2.circle(output, (x, y), r, (0, 255, 0), 4)
+                cv2.rectangle(output, (x - 5, y - 5), (x + 5, y + 5), (0, 128, 255), -1)
+            for (x, y, r) in small:
+                cv2.circle(output, (x, y), r, (255, 0, 0), 4)
+                cv2.rectangle(output, (x - 5, y - 5), (x + 5, y + 5), (0, 128, 255), -1)
         else:
             print("No válida")
             # TODO mostrar np válido
+        cv2.imshow("output", output)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
 
     def getCap_big_list(self, ):
         return self._cap_big_list
