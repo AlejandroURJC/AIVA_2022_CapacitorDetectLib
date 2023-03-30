@@ -52,3 +52,14 @@ class CapacitorDetectionTest(unittest.TestCase):
         tuples = cd.seg_image(cd.read_image(testim))
         capacitors = cd.loc_capacitors(tuples)
         self.assertEqual(51, len(capacitors))
+
+    def test_extract_types(self):
+        """
+        Comprueba que se extraen los tipos de manera correcta
+        :return:
+        """
+        tuples = cd.seg_image(cd.read_image(testim))
+        capacitors = cd.loc_capacitors(tuples)
+        big, small = cd.extract_types(capacitors)
+        self.assertEqual(34, len(big))
+        self.assertEqual(17, len(small))

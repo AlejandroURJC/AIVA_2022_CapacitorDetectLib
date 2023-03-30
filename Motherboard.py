@@ -38,8 +38,6 @@ class Motherboard:
         output = cv2.cvtColor(cd.read_image(im_path), cv2.COLOR_GRAY2BGR)
         if valid:
             big, small = cd.read_txt(im_path, loc_path)
-            cv2.putText(output, "Recomendación: Comprar", (20, 20), font, fontScale, [0, 0, 255],
-                        thickness, cv2.LINE_AA)
             for (x, y, r) in big:
                 cv2.circle(output, (x, y), r, (0, 255, 0), 4)
                 cv2.rectangle(output, (x - 5, y - 5), (x + 5, y + 5), (0, 128, 255), -1)
@@ -48,7 +46,6 @@ class Motherboard:
                 cv2.rectangle(output, (x - 5, y - 5), (x + 5, y + 5), (0, 128, 255), -1)
         else:
             print("No válida")
-
         cv2.imshow("output", output)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
