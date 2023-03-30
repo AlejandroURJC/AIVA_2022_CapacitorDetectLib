@@ -29,7 +29,7 @@ def read_txt(im_path, loc_path):
     :param loc_path:
     :return:
     """
-    im_name = im_path.split("/")[-1]
+    im_name = im_path.split("/")[-1] 
     im_name = im_name.split(".")[0]
     try:
         with open(loc_path + "/" + im_name + "_loc.txt", "r") as f:
