@@ -47,4 +47,3 @@ class Motherboard:
 
     def setCap_small_list(self, c_small_list):
         self._cap_small_list = c_small_list
-

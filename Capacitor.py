@@ -15,4 +15,3 @@ class Capacitor:
 
     def setSize(self, s):
         self._size = s
-
