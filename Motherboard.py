@@ -2,9 +2,9 @@ import cv2
 import capacitor_detection as cd
 
 font = cv2.FONT_HERSHEY_SIMPLEX
-fontScale = 0.5
+fontScale = 1
 color = [0, 0, 255]
-thickness = 1
+thickness = 2
 (_, textSize), _ = cv2.getTextSize("Test", font, fontScale, thickness)
 
 class Motherboard:
@@ -38,6 +38,10 @@ class Motherboard:
         output = cv2.cvtColor(cd.read_image(im_path), cv2.COLOR_GRAY2BGR)
         if valid:
             big, small = cd.read_txt(im_path, loc_path)
+            cv2.putText(output, "Recomendacion: comprar", (40, 40), font, fontScale,
+                        [0, 255, 0], thickness, cv2.LINE_AA)
+            cv2.putText(output, f"Beneficio: {len(big) * 0.15 + len(small) * 0.05 - 1:.2f}", (40, 80), font, fontScale,
+                        [0, 255, 0], thickness, cv2.LINE_AA)
             for (x, y, r) in big:
                 cv2.circle(output, (x, y), r, (0, 255, 0), 4)
                 cv2.rectangle(output, (x - 5, y - 5), (x + 5, y + 5), (0, 128, 255), -1)
@@ -45,10 +49,12 @@ class Motherboard:
                 cv2.circle(output, (x, y), r, (255, 0, 0), 4)
                 cv2.rectangle(output, (x - 5, y - 5), (x + 5, y + 5), (0, 128, 255), -1)
         else:
-            print("No válida")
+            cv2.putText(output, "Recomendacion: no comprar", (40, 40), font, fontScale,
+                        [0, 0, 255], thickness, cv2.LINE_AA)
         cv2.imshow("output", output)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
+        cv2.imwrite("ejemplo3.jpg", output)
 
     def getCap_big_list(self, ):
         return self._cap_big_list
