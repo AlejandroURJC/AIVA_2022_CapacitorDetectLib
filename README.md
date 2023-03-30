@@ -1,5 +1,15 @@
 # AIVA_2022_CapacitorDetectLib ![status-in progress-yellow](https://user-images.githubusercontent.com/61578803/224482948-0078baed-9ae3-474f-b31f-4ba6c4329909.svg) ![License](https://img.shields.io/badge/license-GPL%20v3-blue)
 Aplicación que localiza los condensadores de una placa base y recomienda o no su compra. Una placa base tiene un coste de 1 €, los condensadores pequeños valen 5 céntimos y los grandes 15 céntimos. Teniendo esto en cuenta, sólamente si la venta de los condensadores supone un beneficio igual o superior a 1 €, se recomendará la compra. En este caso, además se generará un archivo .txt con la localización de los condensadores.
+
+El programa da la siguiente salida en caso de una placa válida:
+<p>
+  <img src="img/ejemplo1.jpg" width="720">
+</p>
+En caso de que se decida que la placa no es válida, la salida es la siguiente:
+<p>
+  <img src="img/ejemplo2.jpg" width="720">
+</p>
+
 ## Instalación 🔧
 1. Elija el directorio en el que desea clonar el proyecto: `cd <ruta_directorio>`
 2. Dentro del directorio, ejecute el siguiente comando: `git clone https://github.com/AlejandroURJC/AIVA_2022_CapacitorDetectLib.git`
