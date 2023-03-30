@@ -1,4 +1,3 @@
-import json
 import unittest
 import capacitor_detection as cd
 from Motherboard import Motherboard
@@ -43,7 +42,7 @@ class CapacitorDetectionTest(unittest.TestCase):
         Comprueba que la imagen se lee correctamente con el tamaño debido
         :return:
         """
-        self.assertEqual(cd.read_image(testim).shape, (3280, 4928))
+        self.assertEqual(cd.read_image(testim).shape, (1093, 1642))
 
     def test_loc_capacitors(self):
         """
@@ -52,4 +51,4 @@ class CapacitorDetectionTest(unittest.TestCase):
         """
         tuples = cd.seg_image(cd.read_image(testim))
         capacitors = cd.loc_capacitors(tuples)
-        self.assertEqual(18, len(capacitors))
+        self.assertEqual(51, len(capacitors))

@@ -2,6 +2,8 @@ import os
 import cv2
 import json
 import argparse
+import numpy as np
+from Capacitor import Capacitor
 from Motherboard import Motherboard
 
 def write_txt(capacitors, im_path, loc_path):
