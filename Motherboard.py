@@ -54,7 +54,6 @@ class Motherboard:
         cv2.imshow("output", output)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
-        cv2.imwrite("ejemplo3.jpg", output)
 
     def getCap_big_list(self, ):
         return self._cap_big_list
