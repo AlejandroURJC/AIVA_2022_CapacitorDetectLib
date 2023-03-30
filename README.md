@@ -28,6 +28,10 @@ Este comando mostrará por pantalla la imagen pasada como argumento con la infor
 
 El archivo generado tendrá el nombre `placa1_loc.txt`.
 
+## Testeo 🧪
+
+Para testear las funciones del proyecto se debe ejecutar el comando `python -m unittest -v capacitor_detection_test.py`
+
 ## Construido con 🛠️
 * [Python](https://www.python.org/) - Lenguaje de programación utilizado.
   * [OpenCV](https://opencv.org/) - Biblioteca principal utilizada en el proyecto.
