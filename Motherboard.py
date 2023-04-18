@@ -1,5 +1,4 @@
 import cv2
-import capacitor_detection as cd
 
 font = cv2.FONT_HERSHEY_SIMPLEX
 fontScale = 1
@@ -20,6 +19,7 @@ class Motherboard:
         :param loc_path:
         :return:
         """
+        import capacitor_detection as cd
         image = cd.read_image(im_path)
         segments = cd.seg_image(image)
         capacitors = cd.loc_capacitors(segments)
@@ -35,6 +35,7 @@ class Motherboard:
         Muestra por pantalla el resultado de la decisión tomada
         :return:
         """
+        import capacitor_detection as cd
         output = cv2.cvtColor(cd.read_image(im_path), cv2.COLOR_GRAY2BGR)
         if valid:
             big, small = cd.read_txt(im_path, loc_path)

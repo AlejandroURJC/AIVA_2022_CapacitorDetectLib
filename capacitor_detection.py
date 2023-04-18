@@ -4,7 +4,6 @@ import json
 import argparse
 import numpy as np
 from Capacitor import Capacitor
-from Motherboard import Motherboard
 
 def write_txt(capacitors, im_path, loc_path):
     """
@@ -127,6 +126,7 @@ if __name__ == '__main__':
                         required=False)
 
     args = parser.parse_args()
+    from Motherboard import Motherboard
     board = Motherboard()
     valid = board.validate_board(args.img, args.loc)
 
