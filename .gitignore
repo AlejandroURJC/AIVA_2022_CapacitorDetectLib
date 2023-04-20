@@ -1,5 +1,5 @@
 .idea/
 .pytest_cache/
 locations/
-DB/
 __pycache__/
+DB/
