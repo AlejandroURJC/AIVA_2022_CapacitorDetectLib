@@ -1,4 +1,5 @@
 import cv2
+import os
 
 font = cv2.FONT_HERSHEY_SIMPLEX
 fontScale = 1
@@ -24,9 +25,13 @@ class Motherboard:
         segments = cd.seg_image(image)
         capacitors = cd.loc_capacitors(segments)
         big, small = cd.extract_types(capacitors)
-        validation = len(big) * 0.15 + len(small) * 0.05 > 1
+        benefit = len(big) * 0.15 + len(small) * 0.05
+        validation = benefit > 1
         if validation:
             cd.write_txt((big, small), im_path, loc_path)
+            print(f"Compra recomendada \t Beneficio: {benefit - 1:.2f}€")
+        else:
+            print("Compra no recomendada")
         self.show_validation(validation, im_path, loc_path)
         return validation
 
@@ -52,9 +57,14 @@ class Motherboard:
         else:
             cv2.putText(output, "Recomendacion: no comprar", (40, 40), font, fontScale,
                         [0, 0, 255], thickness, cv2.LINE_AA)
-        cv2.imshow("output", output)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+
+        if not os.path.exists(loc_path + "/out_im"):
+            os.mkdir(loc_path + "/out_im")
+        im_name = im_path.split("/")[-1]
+        cv2.imwrite(loc_path + "/out_im/out_" + im_name, output)
+        #cv2.imshow("output", output)
+        #cv2.waitKey(0)
+        #cv2.destroyAllWindows()
 
     def getCap_big_list(self, ):
         return self._cap_big_list

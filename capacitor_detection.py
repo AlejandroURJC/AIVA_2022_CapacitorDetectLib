@@ -33,8 +33,10 @@ def read_txt(im_path, loc_path):
     try:
         with open(loc_path + "/" + im_name + "_loc.txt", "r") as f:
             return json.load(f)
-    except OSError as e:
-        return
+    except OSError as o:
+        return o
+    except TypeError as t:
+        return t
 
 
 def read_image(im_path):
@@ -113,9 +115,8 @@ def seg_image(image):
             res.append((x, y, r))
             cv2.circle(output, (x, y), r, (0, 255, 0), 4)
             cv2.rectangle(output, (x - 5, y - 5), (x + 5, y + 5), (0, 128, 255), -1)
-    cv2.imshow("output", output)
-    cv2.waitKey(0)
-
+    #cv2.imshow("output", output)
+    #cv2.waitKey(0)
     return res
 
 
